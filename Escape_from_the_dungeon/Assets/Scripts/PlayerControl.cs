@@ -8,7 +8,9 @@ public class PlayerControl : MonoBehaviour
     // GameObjects
     private GameObject player;
     private GameObject gun;
-    private GameObject jetpack;
+    public GameObject jetpack;
+    private Rigidbody2D jetpackRigidBody;
+    private Rigidbody2D playerRigidBody;
 
     // Characteristics
     public int speed;
@@ -16,25 +18,34 @@ public class PlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // player.GameObject.Find("Player");
-        //Transform playerTransform = player.GetComponent<Transform>();
+        jetpackRigidBody = jetpack.GetComponent<Rigidbody2D>();
+        playerRigidBody = this.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        // DEBUG:
+        //Debug.Log(message:$"<color=green><size=16> mousePosition.x: {Input.mousePosition.x} </size> </color>");
+        //Debug.Log(message:$"<color=green><size=16> mousePosition.y: {Input.mousePosition.y} </size> </color>");
+
         if(Input.GetKey("d"))
         {
-            // playerTransform.Translate(10, 0, 0); // .x += 10;
-            // player.Translate(10,0,0);
-            // player.transform.position = player.transform.position + new Vector3(3, 0, 0);
-            //transform.Translate(speed*Time.deltaTime, 0f, 0f);
+            // Transforming position
+            //player.transform.position = player.transform.position + new Vector3(3, 0, 0);
+            
+            // Translate speed of the object attached to
+            transform.Translate(speed*Time.deltaTime, 0f, 0f);
             Debug.Log("Moved right.");
         } 
         else if (Input.GetKey("a"))
         {
+            // Transforming position
             // player.transform.position = player.transform.position + new Vector3(-3, 0, 0);
-            //transform.Translate(-speed*Time.deltaTime, 0f, 0f);
+
+            // Translate speed of the object attached to
+            transform.Translate(-speed*Time.deltaTime, 0f, 0f);
             Debug.Log("Moved left.");
         } 
         else  if (Input.GetMouseButton(0))
@@ -45,6 +56,12 @@ public class PlayerControl : MonoBehaviour
         else if (Input.GetMouseButton(1))
         {
             Debug.Log("Pressed right click.");
+            
+            // Jetpack RidigBody
+            //jetpackRigidBody.AddForce(new Vector3(-5, 0, 0), ForceMode2D.Force); //Input.mousePosition.x, Input.mousePosition.y, ForceMode2D.Acceleration
+            
+            // Player RigidBody
+            playerRigidBody.AddForce(new Vector3(0, (Input.mousePosition.y % 2) + 1, 0), ForceMode2D.Force);
         }
     }
 }
