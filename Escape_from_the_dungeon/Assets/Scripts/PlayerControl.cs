@@ -14,7 +14,12 @@ public class PlayerControl : MonoBehaviour
 
     // Characteristics
     public int speed;
-
+    public int flyspeed;
+    public double waterbar;
+    public double waterspeed;
+    public GameObject bulletprefab;
+    public GameObject bullethole;
+    public float bulletspeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +34,8 @@ public class PlayerControl : MonoBehaviour
         // DEBUG:
         //Debug.Log(message:$"<color=green><size=16> mousePosition.x: {Input.mousePosition.x} </size> </color>");
         //Debug.Log(message:$"<color=green><size=16> mousePosition.y: {Input.mousePosition.y} </size> </color>");
-
+        Vector3 pos = bullethole.transform.position;
+        
         if(Input.GetKey("d"))
         {
             // Transforming position
@@ -38,6 +44,8 @@ public class PlayerControl : MonoBehaviour
             // Translate speed of the object attached to
             transform.Translate(speed*Time.deltaTime, 0f, 0f);
             Debug.Log("Moved right.");
+            if (waterbar < 100)
+                waterbar += Time.deltaTime * (waterspeed - 50);
         } 
         else if (Input.GetKey("a"))
         {
@@ -47,14 +55,30 @@ public class PlayerControl : MonoBehaviour
             // Translate speed of the object attached to
             transform.Translate(-speed*Time.deltaTime, 0f, 0f);
             Debug.Log("Moved left.");
+            if (waterbar < 100)
+                waterbar += Time.deltaTime * (waterspeed - 50);
         } 
         else  if (Input.GetMouseButton(0))
         {
-            Debug.Log("Pressed left click.");
+            if (waterbar>0)
+            {
+                Debug.Log("Pressed left click.");
+                transform.Translate(0f, flyspeed * Time.deltaTime, 0f);
+                waterbar -= Time.deltaTime * waterspeed;
+                Debug.Log("waterbar");
+            }
+            else
+            {
+                Debug.Log("There is no water in the waterbag");
+            }
 
-        } 
-        else if (Input.GetMouseButton(1))
+        }
+       
+        else if (Input.GetMouseButtonDown(1))
         {
+
+            if (waterbar < 100)
+                waterbar += Time.deltaTime * (waterspeed - 50);
             Debug.Log("Pressed right click.");
             
             // Jetpack RidigBody
@@ -62,6 +86,14 @@ public class PlayerControl : MonoBehaviour
             
             // Player RigidBody
             playerRigidBody.AddForce(new Vector3(0, (Input.mousePosition.y % 2) + 1, 0), ForceMode2D.Force);
+
+           GameObject bullet=GameObject.Instantiate(bulletprefab, pos, Quaternion.identity)as GameObject;
+            Debug.Log(pos);
+            Debug.Log(bullethole.transform.position);
+            bullet.transform.Translate((jetpack.transform.position-bullethole.transform.position)*bulletspeed);
         }
+        if (waterbar < 100)
+            waterbar += Time.deltaTime * (waterspeed - 50);
+
     }
 }
