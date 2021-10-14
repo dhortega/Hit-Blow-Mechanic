@@ -8,12 +8,22 @@ public class AutoDestroy : MonoBehaviour
     public float destroy_timer = 1.0f;
     void Start()
     {
-        Destroy(this.gameObject, destroy_timer);
+        // Destroys game object based on timer. Currently disabled.
+        //Destroy(this.gameObject, destroy_timer);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    // Destroy this game object when colliding with objects tagged as "Ground"
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Ground")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
