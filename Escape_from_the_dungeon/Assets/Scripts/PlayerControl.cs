@@ -7,7 +7,7 @@ public class PlayerControl : MonoBehaviour
 
     // GameObjects
     private GameObject player;
-    private GameObject gun;
+    public GameObject gun;
     public GameObject jetpack;
     private Rigidbody2D jetpackRigidBody;
     private Rigidbody2D playerRigidBody;
@@ -17,16 +17,18 @@ public class PlayerControl : MonoBehaviour
     public int flyspeed;
     public double waterbar;
     public double waterspeed;
+    private PlayerShoot gunPlayerShoot;
     public GameObject bulletprefab;
     public GameObject bullethole;
     public float bulletspeed;
 
     Vector3 myScreenPos;
 
-
-
     Vector2 target;
     Vector2 myPos;
+
+    public Transform playerPosition;
+    public Transform launchPoint;
 
 
     // Start is called before the first frame update
@@ -34,14 +36,13 @@ public class PlayerControl : MonoBehaviour
     {
         jetpackRigidBody = jetpack.GetComponent<Rigidbody2D>();
         playerRigidBody = this.GetComponent<Rigidbody2D>();
-
+        gunPlayerShoot = gun.GetComponent<PlayerShoot>();
         myScreenPos = Camera.main.WorldToScreenPoint(this.transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
-
         // DEBUG:
         //Debug.Log(message:$"<color=green><size=16> mousePosition.x: {Input.mousePosition.x} </size> </color>");
         //Debug.Log(message:$"<color=green><size=16> mousePosition.y: {Input.mousePosition.y} </size> </color>");
@@ -49,31 +50,32 @@ public class PlayerControl : MonoBehaviour
         
         if(Input.GetKey("d"))
         {
-            // Transforming position
+            // OLD Transforming position
             //player.transform.position = player.transform.position + new Vector3(3, 0, 0);
             
-            // Translate speed of the object attached to
+            // OLD Translate speed of the object attached to
             //transform.Translate(speed*Time.deltaTime, 0f, 0f);
             Debug.Log("Moved right.");
             //if (waterbar < 200)
             // waterbar += Time.deltaTime * (waterspeed - 50);
 
-
+            // Move player by adding force and pushing to the right
             playerRigidBody.AddForce(Vector2.right * speed);
 
             print("Right" + Vector2.right);
         } 
         else if (Input.GetKey("a"))
         {
-            // Transforming position
+            // OLD Transforming position
             // player.transform.position = player.transform.position + new Vector3(-3, 0, 0);
 
-            // Translate speed of the object attached to
+            // OLD Translate speed of the object attached to
             //transform.Translate(-speed*Time.deltaTime, 0f, 0f);
             Debug.Log("Moved left.");
             //if (waterbar < 200)
             //waterbar += Time.deltaTime * (waterspeed - 50);
 
+            // Move player by adding force and pushing to the left
             playerRigidBody.AddForce(Vector2.left * speed);
         } 
         if (Input.GetMouseButton(0))
@@ -82,7 +84,15 @@ public class PlayerControl : MonoBehaviour
             {
                 Debug.Log("Pressed left click.");
                 //transform.Translate(0f, flyspeed * Time.deltaTime, 0f);
-                playerRigidBody.AddForce(Vector2.up * flyspeed * Time.deltaTime);
+
+                // OLD Launch Direction
+                //Vector2 launchDireciton = launchPoint.position - playerPosition.position;
+
+                // Adding force based on two points: launch point and player position
+                float transformX = launchPoint.position.x - playerPosition.position.x;
+                float transformY = launchPoint.position.y - playerPosition.position.y;
+                playerRigidBody.AddForce(new Vector2 (transformX,transformY) * flyspeed * Time.deltaTime); //Vector2.up* flyspeed *Time.deltaTime |jetpackBlow.LaunchDirection()
+                
                 waterbar -= Time.deltaTime * waterspeed;
                 Debug.Log("waterbar");
             }
@@ -124,17 +134,10 @@ public class PlayerControl : MonoBehaviour
         //    bulletShoot.GetComponent<Rigidbody2D>().velocity = new Vector2(direction.x, direction.y) * bulletspeed;
         //}
 
-
-
-
+        // Checking input on right mouse button
         else if(Input.GetMouseButtonDown(1))
         {
-            Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y));
-            Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
-            Vector2 direction = target - myPos;
-            direction.Normalize();
-            GameObject projectile = (GameObject)Instantiate(bulletprefab, myPos, Quaternion.identity);
-            projectile.GetComponent<Rigidbody2D>().velocity = direction * bulletspeed;
+            gunPlayerShoot.SpawnProjectile(bulletprefab, bulletspeed);
         }
 
     }
