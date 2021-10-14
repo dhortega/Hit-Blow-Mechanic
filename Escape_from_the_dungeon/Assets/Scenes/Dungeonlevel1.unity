@@ -287,6 +287,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Left_Plateform
       objectReference: {fileID: 0}
+    - target: {fileID: 9114310792537637935, guid: ecdaa74e74519ba4898f071c2c6807c2, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecdaa74e74519ba4898f071c2c6807c2, type: 3}
 --- !u!1 &505604868
@@ -324,12 +328,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1.25
+  m_GravityScale: 1.1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &505604870
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -425,13 +429,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jetpack: {fileID: 913773387}
-  speed: 5
-  flyspeed: 20
-  waterbar: 100
-  waterspeed: 100
+  speed: 13
+  flyspeed: 1000
+  waterbar: 200
+  waterspeed: 135
   bulletprefab: {fileID: 4004849285853318939, guid: 63dabedfb4530394581d8d2b2ba1db51, type: 3}
   bullethole: {fileID: 1729073271}
-  bulletspeed: 1
+  bulletspeed: 25
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,6 +648,10 @@ PrefabInstance:
     - target: {fileID: 9114310792537637935, guid: ecdaa74e74519ba4898f071c2c6807c2, type: 3}
       propertyPath: m_Name
       value: Right_Plateform
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114310792537637935, guid: ecdaa74e74519ba4898f071c2c6807c2, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecdaa74e74519ba4898f071c2c6807c2, type: 3}
@@ -1100,7 +1108,7 @@ GameObject:
   - component: {fileID: 1908631157}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1206,6 +1214,10 @@ PrefabInstance:
     - target: {fileID: 1401114096810161521, guid: 0f255c573776e434dbadd9e1f423db9c, type: 3}
       propertyPath: m_Name
       value: Long_Plateform
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401114096810161521, guid: 0f255c573776e434dbadd9e1f423db9c, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 1401114096810161527, guid: 0f255c573776e434dbadd9e1f423db9c, type: 3}
       propertyPath: m_RootOrder
