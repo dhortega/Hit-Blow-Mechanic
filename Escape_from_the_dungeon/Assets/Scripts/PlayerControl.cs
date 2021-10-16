@@ -17,7 +17,7 @@ public class PlayerControl : MonoBehaviour
     public int flyspeed;
     public double waterbar;
     public double waterspeed;
-    private PlayerShoot gunPlayerShoot;
+    public PlayerShoot gunPlayerShoot;
     public GameObject bulletprefab;
     public GameObject bullethole;
     public float bulletspeed;
@@ -30,6 +30,11 @@ public class PlayerControl : MonoBehaviour
     public Transform playerPosition;
     public Transform launchPoint;
 
+    public Animator astronautAnim;
+
+
+    public bool isFacingRight = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,47 +42,68 @@ public class PlayerControl : MonoBehaviour
         jetpackRigidBody = jetpack.GetComponent<Rigidbody2D>();
         playerRigidBody = this.GetComponent<Rigidbody2D>();
         gunPlayerShoot = gun.GetComponent<PlayerShoot>();
+        //gunPlayerShoot = FindObjectOfType<PlayerShoot>();
         myScreenPos = Camera.main.WorldToScreenPoint(this.transform.position);
+
+        astronautAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
+
+        var delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
+        if (delta.x >= 0 && !isFacingRight)
+        { // mouse is on right side of player
+            transform.localScale = new Vector3(1, 1, 1); // or activate look right some other way
+            isFacingRight = true;
+        }
+        else if (delta.x < 0 && isFacingRight)
+        { // mouse is on left side
+            transform.localScale = new Vector3(-1, 1, 1); // activate looking left
+            isFacingRight = false;
+        }
+
+
+
         // DEBUG:
         //Debug.Log(message:$"<color=green><size=16> mousePosition.x: {Input.mousePosition.x} </size> </color>");
         //Debug.Log(message:$"<color=green><size=16> mousePosition.y: {Input.mousePosition.y} </size> </color>");
         Vector3 pos = bullethole.transform.position;
         
-        if(Input.GetKey("d"))
-        {
-            // OLD Transforming position
-            //player.transform.position = player.transform.position + new Vector3(3, 0, 0);
+        //if(Input.GetKey("d"))
+        //{
+        //    // OLD Transforming position
+        //    //player.transform.position = player.transform.position + new Vector3(3, 0, 0);
             
-            // OLD Translate speed of the object attached to
-            //transform.Translate(speed*Time.deltaTime, 0f, 0f);
-            Debug.Log("Moved right.");
-            //if (waterbar < 200)
-            // waterbar += Time.deltaTime * (waterspeed - 50);
+        //    // OLD Translate speed of the object attached to
+        //    //transform.Translate(speed*Time.deltaTime, 0f, 0f);
+        //    Debug.Log("Moved right.");
+        //    //if (waterbar < 200)
+        //    // waterbar += Time.deltaTime * (waterspeed - 50);
 
-            // Move player by adding force and pushing to the right
-            playerRigidBody.AddForce(Vector2.right * speed);
+        //    // Move player by adding force and pushing to the right
+        //    playerRigidBody.AddForce(Vector2.right * speed);
 
-            print("Right" + Vector2.right);
-        } 
-        else if (Input.GetKey("a"))
-        {
-            // OLD Transforming position
-            // player.transform.position = player.transform.position + new Vector3(-3, 0, 0);
+        //    print("Right" + Vector2.right);
+        //} 
+        //else if (Input.GetKey("a"))
+        //{
+        //    // OLD Transforming position
+        //    // player.transform.position = player.transform.position + new Vector3(-3, 0, 0);
 
-            // OLD Translate speed of the object attached to
-            //transform.Translate(-speed*Time.deltaTime, 0f, 0f);
-            Debug.Log("Moved left.");
-            //if (waterbar < 200)
-            //waterbar += Time.deltaTime * (waterspeed - 50);
+        //    // OLD Translate speed of the object attached to
+        //    //transform.Translate(-speed*Time.deltaTime, 0f, 0f);
+        //    Debug.Log("Moved left.");
+        //    //if (waterbar < 200)
+        //    //waterbar += Time.deltaTime * (waterspeed - 50);
 
-            // Move player by adding force and pushing to the left
-            playerRigidBody.AddForce(Vector2.left * speed);
-        } 
+        //    // Move player by adding force and pushing to the left
+        //    playerRigidBody.AddForce(Vector2.left * speed);
+        //} 
         if (Input.GetMouseButton(0))
         {
             if (waterbar>0)
@@ -92,12 +118,15 @@ public class PlayerControl : MonoBehaviour
                 float transformX = launchPoint.position.x - playerPosition.position.x;
                 float transformY = launchPoint.position.y - playerPosition.position.y;
                 playerRigidBody.AddForce(new Vector2 (transformX,transformY) * flyspeed * Time.deltaTime); //Vector2.up* flyspeed *Time.deltaTime |jetpackBlow.LaunchDirection()
+
+                astronautAnim.SetBool("isFlying", true);
                 
                 waterbar -= Time.deltaTime * waterspeed;
                 Debug.Log("waterbar");
             }
             else
             {
+                astronautAnim.SetBool("isFlying", false);
                 Debug.Log("There is no water in the waterbag");
             }
 
@@ -139,6 +168,8 @@ public class PlayerControl : MonoBehaviour
         {
             gunPlayerShoot.SpawnProjectile(bulletprefab, bulletspeed);
         }
+        else
+        astronautAnim.SetBool("isFlying", false);
 
     }
 
@@ -146,8 +177,16 @@ public class PlayerControl : MonoBehaviour
     {
         if(collision.collider.tag == "Ground")
         {
-            if (waterbar < 200)
-                waterbar += Time.deltaTime * waterspeed;
+            if (waterbar < 100)
+            {
+                waterbar += waterspeed;
+                if(waterbar > 100)
+                {
+                    waterbar = 100;
+                }
+            }
+
+            astronautAnim.SetBool("isFlying", false);
 
             Debug.Log("Collision on");
         }

@@ -12,6 +12,7 @@ public class PlayerShoot : MonoBehaviour
     // Spawns a bullet with a particular bullet at the transform where this script is attached
     public void SpawnProjectile(GameObject bulletprefab, float bulletspeed)
     {
+        Debug.Log("Spawn Projectile");
         Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x,Input.mousePosition.y));
         Vector2 myPos = new Vector2(transform.position.x, transform.position.y); //+ 1
         Vector2 direction = target - myPos;
