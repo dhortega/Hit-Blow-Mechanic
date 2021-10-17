@@ -21,7 +21,7 @@ public class AutoDestroy : MonoBehaviour
     // Destroy this game object when colliding with objects tagged as "Ground"
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Ground")
+        if (collision.collider.tag == "Ground" || collision.collider.tag == "Rock")
         {
             Destroy(this.gameObject);
         }
