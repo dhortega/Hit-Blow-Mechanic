@@ -35,6 +35,10 @@ public class PlayerControl : MonoBehaviour
 
     public bool isFacingRight = true;
 
+    AudioSource audioSource;
+
+    public AudioClip airClip;
+
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +50,8 @@ public class PlayerControl : MonoBehaviour
         myScreenPos = Camera.main.WorldToScreenPoint(this.transform.position);
 
         astronautAnim = GetComponent<Animator>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -122,6 +128,7 @@ public class PlayerControl : MonoBehaviour
                 astronautAnim.SetBool("isFlying", true);
                 
                 waterbar -= Time.deltaTime * waterspeed;
+                //audioSource.clip = airClip;
                 Debug.Log("waterbar");
             }
             else

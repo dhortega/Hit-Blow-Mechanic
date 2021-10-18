@@ -23,6 +23,7 @@ public class GreenPlatform : MonoBehaviour
         }
         else if (bulletHit)
         {
+            Debug.Log("BUllet Hit" + bulletHit);
             //Stop rotation
 
         }
