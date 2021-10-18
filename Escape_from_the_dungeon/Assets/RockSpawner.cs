@@ -24,7 +24,7 @@ public class RockSpawner : MonoBehaviour
         InstantiationTimer -= Time.deltaTime;
         if (InstantiationTimer <= 0)
         {
-            Vector2 rInt = new Vector2(Random.Range(-19, 19), 0);
+            Vector2 rInt = new Vector2(0, 0); 
             Instantiate(rockprefab, myPos + rInt, Quaternion.identity);
             InstantiationTimer = 2f;
         }   
