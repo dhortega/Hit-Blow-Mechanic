@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - Bullet
   - Rock
+  - Wall
+  - RedPlatform
+  - GreenPlatform
   layers:
   - Default
   - TransparentFX

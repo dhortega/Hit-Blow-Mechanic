@@ -25,5 +25,14 @@ public class AutoDestroy : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        else if (collision.collider.tag == "Wall")
+        {
+            Destroy(this.gameObject);
+        }
+        else if(collision.collider.tag== "GreenPlatform")
+        {
+            Destroy(this.gameObject);
+            collision.collider.GetComponent<GreenPlatform>().bulletHit = true;
+        }
     }
 }
