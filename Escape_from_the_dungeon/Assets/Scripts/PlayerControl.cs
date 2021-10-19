@@ -185,7 +185,7 @@ public class PlayerControl : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.collider.tag == "Ground" || collision.collider.tag == "Rock")
+        if(collision.collider.tag == "Ground" || collision.collider.tag == "Rock" || collision.collider.tag == "GreenPlatform")
         {
             if (waterbar < 100)
             {
