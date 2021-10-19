@@ -14,6 +14,8 @@ TagManager:
   - Blue
   - Orange
   - Red
+  - Posion
+  - Escapedoor
   layers:
   - Default
   - TransparentFX
