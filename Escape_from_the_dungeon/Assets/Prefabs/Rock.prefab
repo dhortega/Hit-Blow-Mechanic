@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5075674364802517417}
   - component: {fileID: 2702748586776772012}
   - component: {fileID: 8856757707029421093}
+  - component: {fileID: 1755136348177227682}
   - component: {fileID: 5400760879816772827}
   m_Layer: 0
   m_Name: Rock
@@ -244,6 +245,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rockClip: {fileID: 8300000, guid: 1c28ddc490ca7bd44948633491ab8c49, type: 3}
   destroy_timer: 1
+--- !u!114 &1755136348177227682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4648497955845591851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb9c2fbcc806e9489eed190a83eb562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5400760879816772827
 MonoBehaviour:
   m_ObjectHideFlags: 0
