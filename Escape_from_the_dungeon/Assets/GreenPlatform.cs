@@ -25,7 +25,7 @@ public class GreenPlatform : MonoBehaviour
         {
             Debug.Log("BUllet Hit" + bulletHit);
             //Stop rotation
-
+            gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         }
     }
 }
