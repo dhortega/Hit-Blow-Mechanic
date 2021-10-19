@@ -6,6 +6,10 @@ public class RockSpawner : MonoBehaviour
 {
     public GameObject rockprefab;
 
+    // Sound
+    public AudioSource audioSource;
+    public AudioClip rockBreakClip;
+
     // Time variables
     private float InstantiationTimer = 2f;
 
@@ -28,5 +32,10 @@ public class RockSpawner : MonoBehaviour
             Instantiate(rockprefab, myPos + rInt, Quaternion.identity);
             InstantiationTimer = 2f;
         }   
+    }
+
+    public void playSound(AudioSource sound, AudioClip soundClip)
+    {
+        sound.PlayOneShot(soundClip);
     }
 }
