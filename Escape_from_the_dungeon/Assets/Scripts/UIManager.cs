@@ -38,6 +38,7 @@ public class UIManager : MonoBehaviour
         if(timelimit<=0)
         {
             Changedeadmessage();
+            GameObject.Find("AstroStay").GetComponent<Renderer>().enabled = false;
             Invoke("Reloadscen",1f);
         }    
     }
