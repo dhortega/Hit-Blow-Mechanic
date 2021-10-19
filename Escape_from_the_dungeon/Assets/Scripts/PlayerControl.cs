@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerControl : MonoBehaviour
 {
 
@@ -21,7 +21,7 @@ public class PlayerControl : MonoBehaviour
     public GameObject bulletprefab;
     public GameObject bullethole;
     public float bulletspeed;
-
+    public float resetspeed;
     Vector3 myScreenPos;
 
     Vector2 target;
@@ -200,5 +200,23 @@ public class PlayerControl : MonoBehaviour
 
             Debug.Log("Collision on");
         }
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+    if(collision.tag.CompareTo("Posion")==0)
+        {
+            GameObject.Find("UICanvas").GetComponent<UIManager>().Changedeadmessage();
+            this.gameObject.GetComponent<Renderer>().enabled = false;
+            Invoke("Reset",resetspeed);
+        }
+    if(collision.tag.CompareTo("Escapedoor") == 0)
+        {
+            GameObject.Find("UICanvas").GetComponent<UIManager>().Changewinmessage();
+            Invoke("Reset", resetspeed);
+        }
+    }
+    void Reset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
