@@ -4,8 +4,23 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< Updated upstream
   - Escapedoor
   - Posion
+=======
+  - Ground
+  - Bullet
+  - Rock
+  - Wall
+  - RedPlatform
+  - GreenPlatform
+  - White
+  - Blue
+  - Orange
+  - Red
+  - Posion
+  - Escapedoor
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX

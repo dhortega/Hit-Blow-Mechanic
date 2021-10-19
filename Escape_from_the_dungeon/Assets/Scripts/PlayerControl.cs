@@ -1,7 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+<<<<<<< Updated upstream
 using UnityEngine.UI;
+=======
+using UnityEngine.SceneManagement;
+>>>>>>> Stashed changes
 public class PlayerControl : MonoBehaviour
 {
 
@@ -20,6 +24,29 @@ public class PlayerControl : MonoBehaviour
     public GameObject bulletprefab;
     public GameObject bullethole;
     public float bulletspeed;
+<<<<<<< Updated upstream
+=======
+    public float resettime = 1.0f;
+    Vector3 myScreenPos;
+
+    Vector2 target;
+    Vector2 myPos;
+
+    public Transform playerPosition;
+    public Transform launchPoint;
+
+    public Animator astronautAnim;
+
+
+    public bool isFacingRight = true;
+
+    // Sounds
+    AudioSource audioSource;
+
+    public AudioClip bulletClip;
+    public AudioClip airClip;
+
+>>>>>>> Stashed changes
 
     // Start is called before the first frame update
     void Start()
@@ -127,8 +154,33 @@ public class PlayerControl : MonoBehaviour
             GameObject.Find("Canvas").GetComponent<UIManager>().Changewinmessage();
         }
     }
+<<<<<<< Updated upstream
 
     
 
+=======
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag.CompareTo("Posion")==0)
+        {
+            
+            GameObject.Find("UICanvas").GetComponent<UIManager>().Changedeadmessage();
+            //Destroy(this.gameObject);
+            this.gameObject.GetComponent<Renderer>().enabled=false;
+            //System.Threading.Thread.Sleep(2000);
+            Invoke("Reset", resettime);
+        }
+        if (collision.tag.CompareTo("Escapedoor") == 0)
+        {
+            GameObject.Find("UICanvas").GetComponent<UIManager>().Changewinmessage();
+            
+        }
+    }
+     void Reset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    }
+>>>>>>> Stashed changes
 }
 
