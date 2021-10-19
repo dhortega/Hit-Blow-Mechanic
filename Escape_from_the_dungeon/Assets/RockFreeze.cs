@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class RockFreeze : MonoBehaviour
 {
+    // Sounds
+    AudioSource audioSource;
+    public AudioClip freezeClip;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -20,6 +24,7 @@ public class RockFreeze : MonoBehaviour
     {
         if (col.rigidbody.GetComponent("bulletMovement") != null)
         {
+            audioSource.PlayOneShot(freezeClip);
             gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         }
     }
