@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3888858243763436635}
   m_Layer: 0
   m_Name: IceBullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,4 +147,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5839cbef10a3104ba4960f8cf5884c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rockClip: {fileID: 8300000, guid: 1c28ddc490ca7bd44948633491ab8c49, type: 3}
   destroy_timer: 1

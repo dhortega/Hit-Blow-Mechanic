@@ -35,8 +35,10 @@ public class PlayerControl : MonoBehaviour
 
     public bool isFacingRight = true;
 
+    // Sounds
     AudioSource audioSource;
 
+    public AudioClip bulletClip;
     public AudioClip airClip;
 
 
@@ -50,7 +52,7 @@ public class PlayerControl : MonoBehaviour
         myScreenPos = Camera.main.WorldToScreenPoint(this.transform.position);
 
         astronautAnim = GetComponent<Animator>();
-
+        
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -173,6 +175,7 @@ public class PlayerControl : MonoBehaviour
         // Checking input on right mouse button
         else if(Input.GetMouseButtonDown(1))
         {
+            audioSource.PlayOneShot(bulletClip);
             gunPlayerShoot.SpawnProjectile(bulletprefab, bulletspeed);
         }
         else
@@ -182,7 +185,7 @@ public class PlayerControl : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.collider.tag == "Ground")
+        if(collision.collider.tag == "Ground" || collision.collider.tag == "Rock")
         {
             if (waterbar < 100)
             {

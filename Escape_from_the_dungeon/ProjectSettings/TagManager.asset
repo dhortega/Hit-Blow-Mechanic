@@ -5,9 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Bullet
+  - Rock
   - Wall
   - RedPlatform
   - GreenPlatform
+  - White
+  - Blue
+  - Orange
+  - Red
   layers:
   - Default
   - TransparentFX
