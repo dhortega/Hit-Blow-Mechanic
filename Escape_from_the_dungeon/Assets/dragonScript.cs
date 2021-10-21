@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class dragonScript : MonoBehaviour
 {
-    public Animator dragonAnim;
-    bool isWalking = false;
+    //public Animator dragonAnim;
+    //bool isWalking = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        dragonAnim = GetComponent<Animator>();
+        //dragonAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -19,16 +19,16 @@ public class dragonScript : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             //isWalking = true;
-            dragonAnim.SetBool("isWalking", true);
+            //dragonAnim.SetBool("isWalking", true);
         }
         else if (Input.GetMouseButton(0))
         {
-            dragonAnim.SetBool("isFlying", true);
+            //dragonAnim.SetBool("isFlying", true);
         }
         else
         {
-            dragonAnim.SetBool("isWalking", false);
-            dragonAnim.SetBool("isFlying", false);
+            //dragonAnim.SetBool("isWalking", false);
+            //dragonAnim.SetBool("isFlying", false);
 
         }
     }

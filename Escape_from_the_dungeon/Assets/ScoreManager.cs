@@ -24,6 +24,6 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(message: $"<size=16><color=green> {GetScore()} </color></size>");
+        //Debug.Log(message: $"<size=16><color=green> {GetScore()} </color></size>");
     }
 }

@@ -16,6 +16,7 @@ TagManager:
   - Red
   - Posion
   - Escapedoor
+  - TargetParent
   layers:
   - Default
   - TransparentFX

@@ -24,11 +24,11 @@ public class GreenPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("bulletHit: " + bulletHit);
+        //Debug.Log("bulletHit: " + bulletHit);
 
         if (!bulletHit)
         {
-            Debug.Log("Entereing rotate here!");
+            //Debug.Log("Entereing rotate here!");
             transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime);
 
         }

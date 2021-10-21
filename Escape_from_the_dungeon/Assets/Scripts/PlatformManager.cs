@@ -36,7 +36,7 @@ public class PlatformManager : MonoBehaviour
 
         int indexOfSearchedGameObject = ArrayUtility.IndexOf(platformsArr, platformTemp); // gets the index of a specific object in an array
         platformTemporary = platformsArr[indexOfSearchedGameObject]; // Stored a reference of the gameObject disabled and reenabled
-        Invoke("deactivateGameObject", 2f); // Cannot use invoke if the function being called has parameters
+        Invoke("deactivateGameObject", 1.3f); // Cannot use invoke if the function being called has parameters
         //platRenderer.enabled = false;
         //platRigidbody2D.enabled = false;
         //yield return new WaitForSeconds(5);
@@ -45,7 +45,7 @@ public class PlatformManager : MonoBehaviour
         //platformTemp.SetActive(true);
         //platformsArray[indexOfSearchedGameObject].SetActive(true);
         //Debug.Log(message: $"<color=blue><size=16> At the end of delay </size></color>");
-        Invoke("reactivateGameObject", 5f);
+        Invoke("reactivateGameObject", 4f);
         //yield return new WaitForSeconds(0);
     }
 

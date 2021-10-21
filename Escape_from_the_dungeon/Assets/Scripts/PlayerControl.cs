@@ -41,6 +41,13 @@ public class PlayerControl : MonoBehaviour
     public AudioClip bulletClip;
     public AudioClip airClip;
 
+    public AudioClip l1;
+    public AudioClip l2;
+    public AudioClip l3;
+    public AudioClip l4;
+
+    public ParticleSystem particleSys;
+    public ParticleSystem particleSys2;
 
     // Start is called before the first frame update
     void Start()
@@ -54,13 +61,12 @@ public class PlayerControl : MonoBehaviour
         astronautAnim = GetComponent<Animator>();
         
         audioSource = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
 
         var delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
@@ -116,7 +122,7 @@ public class PlayerControl : MonoBehaviour
         {
             if (waterbar>0)
             {
-                Debug.Log("Pressed left click.");
+                //Debug.Log("Pressed left click.");
                 //transform.Translate(0f, flyspeed * Time.deltaTime, 0f);
 
                 // OLD Launch Direction
@@ -131,12 +137,12 @@ public class PlayerControl : MonoBehaviour
                 
                 waterbar -= Time.deltaTime * waterspeed;
                 //audioSource.clip = airClip;
-                Debug.Log("waterbar");
+                //Debug.Log("waterbar");
             }
             else
             {
                 astronautAnim.SetBool("isFlying", false);
-                Debug.Log("There is no water in the waterbag");
+                //Debug.Log("There is no water in the waterbag");
             }
 
         }
@@ -189,16 +195,40 @@ public class PlayerControl : MonoBehaviour
         {
             if (waterbar < 100)
             {
+                if(!particleSys.isPlaying)
+                {
+                    particleSys.Play();
+                }
                 waterbar += waterspeed;
                 if(waterbar > 100)
                 {
                     waterbar = 100;
                 }
+                
             }
 
             astronautAnim.SetBool("isFlying", false);
 
-            Debug.Log("Collision on");
+            //Debug.Log("Collision on");
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "TargetParent")
+        {
+            if (waterbar < 100)
+            {
+                waterbar += 60;
+                if (!particleSys.isPlaying)
+                {
+                    particleSys2.Play();
+                }
+                if (waterbar > 100)
+                {
+                    waterbar = 100;
+                }
+            }
         }
     }
     void OnTriggerEnter2D(Collider2D collision)

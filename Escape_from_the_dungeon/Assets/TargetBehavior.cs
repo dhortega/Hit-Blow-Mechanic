@@ -8,13 +8,26 @@ public class TargetBehavior : MonoBehaviour
     // Outside scripts
     ScoreManager scoreManager;
 
+    GameObject player;
+    PlayerControl playerControlscript;
+    AudioSource audSource;
+
+    //public ParticleSystem particleWhite;
+    //public ParticleSystem particleBlue;
+    //public ParticleSystem particleYellow;
+    //public ParticleSystem particleRed;
+
+
     // State variables
     //public bool isHit;
 
     // Start is called before the first frame update
     void Start()
     {
-        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>(); 
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        player = GameObject.Find("AstroStay");
+        playerControlscript = player.GetComponent<PlayerControl>();
+        audSource = player.GetComponent<AudioSource>();
     }
 
     // FixedUpdate executes 50 times per second.
@@ -31,6 +44,7 @@ public class TargetBehavior : MonoBehaviour
     void disableTarget()
     {
         gameObject.transform.parent.gameObject.SetActive(false);
+        //Destroy(gameObject.transform.parent.gameObject);
     }
 
     // Checks if bullet game object hits the respective game object with its tag
@@ -39,21 +53,25 @@ public class TargetBehavior : MonoBehaviour
         if(collision.collider.tag == "Bullet" && gameObject.tag == "White")
         {
             giveScore(10);
+            audSource.PlayOneShot(playerControlscript.l1);
             disableTarget();
         } 
         else if (collision.collider.tag == "Bullet" && gameObject.tag == "Blue")
         {
             giveScore(20);
+            audSource.PlayOneShot(playerControlscript.l2);
             disableTarget();
         }
         else if (collision.collider.tag == "Bullet" && gameObject.tag == "Orange")
         {
             giveScore(30);
+            audSource.PlayOneShot(playerControlscript.l3);
             disableTarget();
         } 
         else if ((collision.collider.tag == "Bullet" && gameObject.tag == "Red"))
         {
             giveScore(50);
+            audSource.PlayOneShot(playerControlscript.l4);
             disableTarget();
         }
     }
